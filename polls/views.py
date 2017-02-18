@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from polls import forms
 from django.shortcuts import redirect
 from django.forms import modelformset_factory
-from polls.models import boundaryConditions
+from polls.models import BoundaryConditions
 
 #from hybrida.fem import Mesh, Step, Equation, Simulation, DisplacementType
 #from hybrida.fem import Static, Thermomechanical, TransientThermal
@@ -42,14 +42,20 @@ def index(request):
             ("3", "Neumann distributed"),
     )
 
-    boundaryConditionsFormSet = modelformset_factory(boundaryConditions, form=forms.boundaryConditionsForm, formset=forms.baseformset, extra=1)
+    boundaryConditionsFormSet = modelformset_factory(BoundaryConditions, form=forms.BoundaryConditionsForm, formset=forms.baseformset, extra=1)
 
     # doe iets met dit form
     if request.method == "POST":
+        # form to select the mesh
         form = forms.MyForm(request.POST)
-        formset = boundaryConditionsFormSet(request.POST, prefix="fs1", form_kwargs={"choices_pgroups":choices_pgroups, "choices_bctypes":choices_bctypes})
         
-        if form.is_valid() and formset.is_valid():
+        # form set to add/remove and select multiple boundary conditions
+        formset = BoundaryConditionsFormSet(request.POST, prefix="fs1", form_kwargs={"choices_pgroups":choices_pgroups, "choices_bctypes":choices_bctypes})
+        
+        # form to select a material
+        materialsForm = forms.materialsForm(request.POST)
+        
+        if form.is_valid() and formset.is_valid() and materialform.is_valid():
 
             simulation = form.save()
             pgroup = form.cleaned_data.get('My_field')
@@ -59,14 +65,12 @@ def index(request):
                 instance.simulation = simulation
                 instance.save()
             
-            # return redirect('polls:result', pgroup)
-            # return redirect('polls:boundaryConditions', form)
-
     else:
         form = forms.MyForm()
+        materialsForm = forms.materialsForm()
         formset = boundaryConditionsFormSet(prefix="fs1", form_kwargs={"choices_pgroups":choices_pgroups, "choices_bctypes":choices_bctypes})
     
-    return render(request, 'polls/name.html', {'form': form, "formset": formset})
+    return render(request, 'polls/name.html', {'form': form, "formset": formset, "materialsForm": materialsForm})
     
 # def boundaryConditions(request, form):
 #

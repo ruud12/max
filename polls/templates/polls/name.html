@@ -34,6 +34,8 @@
                 				<tr>
                                 	<th>Physical group</th>
 	                                <th>BC Type</th>
+                                    <th colspan='3'>Coordinates (x, y, z)</th>
+                                    <th>Time</th>
         	                        <th></th>
                 				</tr>
                             </thead>
@@ -43,6 +45,10 @@
 				<tr class="formset dynamic-form" id='form-{{ subform.prefix }}-row'>
                                     <td style="width:30%;">{{ subform.physicalGroup }}{{ subform.id }}</td>
                                     <td>{{ subform.boundaryType }}</td>
+                                    <td style="width:60px">{{ subform.xcoord }}</td>
+                                    <td style="width:60px">{{ subform.ycoord }}</td>
+                                    <td style="width:60px">{{ subform.zcoord }}</td>
+                                    <td style="width:60px">{{ subform.time }}</td>
                                     <td></td>
                                 </tr>
                                 {% endfor %}
@@ -58,7 +64,10 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Materials</h2>
-                        <p> Some text with a form </p>
+                        <p> Choose your material:</p>
+                        
+                        {{ materialsForm.materialChoice }}
+                    
                     </div>
                 </div>
             </div>
