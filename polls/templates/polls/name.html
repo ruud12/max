@@ -7,7 +7,7 @@
     {{ form.errors }}
     {% csrf_token %}
     <div class="row">
-        <div class="col s12 m9 110">
+        <div class="col s12 m10 110">
             <!-- badges -->
             <div id='mesh_header' class="section scrollspy">
                 <div class="row">
@@ -31,18 +31,18 @@
                         
                         <table id='boundary'>
                             <thead>
-				<tr>
+                				<tr>
                                 	<th>Physical group</th>
 	                                <th>BC Type</th>
         	                        <th></th>
-				</tr>
+                				</tr>
                             </thead>
                             <tbody>
                                 {% for subform in formset.forms %}
                                 
 				<tr class="formset dynamic-form" id='form-{{ subform.prefix }}-row'>
                                     <td style="width:30%;">{{ subform.physicalGroup }}{{ subform.id }}</td>
-                                    <td>{{ subform.bcType }}</td>
+                                    <td>{{ subform.boundaryType }}</td>
                                     <td></td>
                                 </tr>
                                 {% endfor %}
@@ -123,7 +123,7 @@
 $(document).ready(function(){
    //$(function() {
         $('#myForm table#boundary tbody tr').formset({
-            addText: 'add',
+            addText: '<a class="waves-effect waves-light btn">Add</a>',
             added: function() {
 		    $('table#boundary select').removeAttr('data-activates')
                     $('table#boundary select').each(function() {

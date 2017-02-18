@@ -10,9 +10,11 @@ class MyForm(forms.ModelForm):
 class boundaryConditionsForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        choices = kwargs.pop("choices")
+        choices_pgroups = kwargs.pop("choices_pgroups")
+        choices_bctypes = kwargs.pop("choices_bctypes")
         super(boundaryConditionsForm, self).__init__(*args, **kwargs)
-        self.fields["physicalGroup"] = forms.ChoiceField(choices=choices)
+        self.fields["physicalGroup"] = forms.ChoiceField(choices=choices_pgroups)
+        self.fields["boundaryType"] = forms.ChoiceField(choices=choices_bctypes)
 
     class Meta:
         model = boundaryConditions
