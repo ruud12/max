@@ -13,6 +13,8 @@ class Simulation(models.Model):
     analysisType = models.CharField(verbose_name="analysisType",
                                     choices=CHOICES,
                                     max_length=100)
+                                    
+    timeFlag = models.BooleanField()
 
     def __str__(self):
         return str(self.id)

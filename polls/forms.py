@@ -2,6 +2,13 @@ from django import forms
 from polls.models import Simulation, BoundaryConditions, Materials
 
 class MyForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label_suffix', '')
+        super(MyForm, self).__init__(*args, **kwargs)
+
+        self.fields["timeFlag"] = forms.BooleanField()
+        self.fields['timeFlag'].label = "Time dependent analysis"
 
     class Meta:
         model = Simulation

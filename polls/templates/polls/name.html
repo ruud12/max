@@ -17,7 +17,6 @@
                             
                             {{ form.mesh }}
                             
-                            
                     </div>
                 </div>
             </div>
@@ -27,7 +26,10 @@
                         <h2 class="header">Boundary Conditions</h2>
                         <p> Apply boundary conditions </p>
                         
-                        {{ form.analysisType }}
+                        
+                        {{ form.timeFlag }} {{form.timeFlag.label_tag}}
+                        
+
                         
                         <table id='boundary'>
                             <thead>
@@ -35,7 +37,7 @@
                                 	<th>Physical group</th>
 	                                <th>BC Type</th>
                                     <th colspan='3'>Coordinates (x, y, z)</th>
-                                    <th>Time</th>
+                                    <th class="timeDependent">Time</th>
         	                        <th></th>
                 				</tr>
                             </thead>
@@ -48,7 +50,7 @@
                                     <td style="width:60px">{{ subform.xcoord }}</td>
                                     <td style="width:60px">{{ subform.ycoord }}</td>
                                     <td style="width:60px">{{ subform.zcoord }}</td>
-                                    <td style="width:60px">{{ subform.time }}</td>
+                                    <td class="timeDependent" style="width:60px">{{ subform.time }}</td>
                                     <td></td>
                                 </tr>
                                 {% endfor %}
@@ -80,7 +82,6 @@
                                 
                             </tbody>
                         </table>
-                        <button type=button class="btn show_form">Show a form</button>
                     </div>
                 </div>
             </div>
@@ -151,6 +152,14 @@ $(document).ready(function(){
 		    $('table#boundary select').removeAttr('data-activates')
                     $('table#boundary select').each(function() {
                         $(this).material_select();
+                        // also need to put this time dependent stuff in here,
+                        // otherwise you get that adding an field, would miss the
+                        // time dependent boxes depending on flag setting
+                        if ($("#id_timeFlag").is(":checked")){
+                            $('.timeDependent').show()
+                        } else {
+                            $('.timeDependent').hide()
+                        }
                     });
 		},
         });
@@ -158,7 +167,6 @@ $(document).ready(function(){
 });
 </script>
 <script>
-
     // hide all fields initially
     $('#youngsModulus').hide()
     $('#poissonRatio').hide()
@@ -192,12 +200,20 @@ $(document).ready(function(){
             $('#density').show()
         }
     });
-    // $(".show_form").click(function() {
-    //     alert("nigga")
-    //     $('#test').show();
-    // });
 </script>
-
+<script>
+    // hide time dependent analysis on default
+    $('.timeDependent').hide()
+    
+    // check the checkbox to see if checked, then show the time dependent classes
+    $("#id_timeFlag").on("click", function(){
+        if ($("#id_timeFlag").is(":checked")){
+            $('.timeDependent').show()
+        } else {
+            $('.timeDependent').hide()
+        }
+    });
+</script>
 
 
 
