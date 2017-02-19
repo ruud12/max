@@ -165,8 +165,9 @@
 <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
 
 <script type="text/javascript">
-       	$('.scrollspy').scrollSpy({
-        });
+        $(document).ready(function(){
+                $('.scrollspy').scrollSpy(scrollOffset=200);
+            });
 </script>
 
 <script>
