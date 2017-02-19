@@ -10,9 +10,53 @@ class Simulation(models.Model):
     )
     
     mesh = models.FileField(verbose_name="mesh", upload_to="meshes")
-    analysisType = models.CharField(verbose_name="analysisType",
-                                    choices=CHOICES,
+    
+    outputChoices = (
+        ("screen", "Print to screen"),
+        ("vtu", "Write to Paraview")
+    )
+    
+    outputSettings = models.CharField(verbose_name="ouputSettings",
+                                      choices=outputChoices,
+                                      max_length=100)
+    
+    equationTypes = (
+        ("displacement", "Displacement"),
+        ("heat", "Heat"),
+        ("flow", "Flow")
+    )
+    equationType = models.CharField(verbose_name="equationType",
+                                    choices=equationTypes,
                                     max_length=100)
+    
+    analysisTypes = (
+        ("static", "Static"),
+        ("staticNonlinear", "Static non-linear"),
+        ("transient", "Transient")
+    )
+    analysisType = models.CharField(verbose_name="analysisType",
+                                    choices=analysisTypes,
+                                    max_length=100)
+    
+    # all kind of analysis settings below:
+    # would be nice if this could be generated based on Hybrida itself?!
+    analysisTolerance = models.CharField(verbose_name="analysisTolerance",
+                                         max_length=20)
+    
+    analysisMaxIter = models.CharField(verbose_name="analysisMaxIter",
+                                         max_length=20)
+    
+    analysisReactions = models.CharField(verbose_name="analysisReactions",
+                                         max_length=20)
+
+    analysisTMax = models.CharField(verbose_name="analysisTMax",
+                                         max_length=20)
+    analysisDT = models.CharField(verbose_name="analysisDT",
+                                         max_length=20)
+    analysisAlpha = models.CharField(verbose_name="analysisAlpha",
+                                         max_length=20)
+                                         
+
                                     
     timeFlag = models.BooleanField()
 

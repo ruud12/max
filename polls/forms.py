@@ -9,7 +9,14 @@ class MyForm(forms.ModelForm):
 
         self.fields["timeFlag"] = forms.BooleanField()
         self.fields['timeFlag'].label = "Time dependent analysis"
-
+        
+        self.fields['analysisTolerance'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Tolerance - this should show the default setting from hybrida"}))
+        self.fields['analysisMaxIter'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Max iterations - this should show the default setting from hybrida"}))
+        self.fields['analysisReactions'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Reactions - this should show the default setting from hybrida"}))
+        self.fields['analysisTMax'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "End time (tmax) - this should show the default setting from hybrida"}))
+        self.fields['analysisDT'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Time step (dt) - this should show the default setting from hybrida"}))
+        self.fields['analysisAlpha'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Algorithm type (alpha) - this should show the default setting from hybrida"}))
+        
     class Meta:
         model = Simulation
         fields = "__all__"

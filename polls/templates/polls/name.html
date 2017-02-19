@@ -13,10 +13,10 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Mesh</h2>
-                        <p> Select your mesh </p>
-                            
-                            {{ form.mesh }}
-                            
+                        <div class="section">
+                            <h5>Select your mesh</h5>
+                                {{ form.mesh }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -24,41 +24,38 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Boundary Conditions</h2>
-                        <p> Apply boundary conditions </p>
-                        
-                        
-                        {{ form.timeFlag }} {{form.timeFlag.label_tag}}
-                        
+                        <div class="section">
+                            
+                            {{ form.timeFlag }} {{form.timeFlag.label_tag}}
 
-                        
-                        <table id='boundary'>
-                            <thead>
-                				<tr>
-                                	<th>Physical group</th>
-	                                <th>BC Type</th>
-                                    <th colspan='3'>Coordinates (x, y, z)</th>
-                                    <th class="timeDependent">Time</th>
-        	                        <th></th>
-                				</tr>
-                            </thead>
-                            <tbody>
-                                {% for subform in formset.forms %}
-                                
-				<tr class="formset dynamic-form" id='form-{{ subform.prefix }}-row'>
-                                    <td style="width:30%;">{{ subform.physicalGroup }}{{ subform.id }}</td>
-                                    <td>{{ subform.boundaryType }}</td>
-                                    <td style="width:60px">{{ subform.xcoord }}</td>
-                                    <td style="width:60px">{{ subform.ycoord }}</td>
-                                    <td style="width:60px">{{ subform.zcoord }}</td>
-                                    <td class="timeDependent" style="width:60px">{{ subform.time }}</td>
-                                    <td></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        
-                        {{ formset.management_form }}
-                        
+                            <table id='boundary'>
+                                <thead>
+                    				<tr>
+                                    	<th>Physical group</th>
+    	                                <th>BC Type</th>
+                                        <th colspan='3'>Coordinates (x, y, z)</th>
+                                        <th class="timeDependent">Time</th>
+            	                        <th></th>
+                    				</tr>
+                                </thead>
+                                <tbody>
+                                    {% for subform in formset.forms %}
+                                    
+                    				<tr class="formset dynamic-form" id='form-{{ subform.prefix }}-row'>
+                                        <td style="width:30%;">{{ subform.physicalGroup }}{{ subform.id }}</td>
+                                        <td>{{ subform.boundaryType }}</td>
+                                        <td style="width:60px">{{ subform.xcoord }}</td>
+                                        <td style="width:60px">{{ subform.ycoord }}</td>
+                                        <td style="width:60px">{{ subform.zcoord }}</td>
+                                        <td class="timeDependent" style="width:60px">{{ subform.time }}</td>
+                                        <td></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                            {{ formset.management_form }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,22 +63,24 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Materials</h2>
-                        <p> Choose your material:</p>
-                        <table id='material'>
-                            <tbody>
-                                <td id="matsel" style="width:150px">{{ materialsForm.materialChoice }}</td>
-                                <td id="density">{{ materialsForm.density }}</td>
-                                
-                                <td id="youngsModulus">{{ materialsForm.youngsModulus }}</td>
-                                <td id="poissonRatio">{{ materialsForm.poissonRatio }}</td>
-                                
-                                <td id="conductivity">{{ materialsForm.conductivity }}</td>
-                                <td id="heatCapacity">{{ materialsForm.heatCapacity }}</td>
-                                
-                                <td id="viscosity">{{ materialsForm.viscosity }}</td>
-                                
-                            </tbody>
-                        </table>
+                            <div class="section">
+                            <h5> Choose your material:</h5>
+                            <table id='material'>
+                                <tbody>
+                                    <td id="matsel" style="width:150px">{{ materialsForm.materialChoice }}</td>
+                                    <td id="density">{{ materialsForm.density }}</td>
+                                    
+                                    <td id="youngsModulus">{{ materialsForm.youngsModulus }}</td>
+                                    <td id="poissonRatio">{{ materialsForm.poissonRatio }}</td>
+                                    
+                                    <td id="conductivity">{{ materialsForm.conductivity }}</td>
+                                    <td id="heatCapacity">{{ materialsForm.heatCapacity }}</td>
+                                    
+                                    <td id="viscosity">{{ materialsForm.viscosity }}</td>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,7 +88,26 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Analysis & Equation </h2>
-                        <p> Select your analysis </p>
+                        <div class="section">
+                            <h5>Analysis type:</h5>
+                            <p id="analysissel">{{ form.analysisType }}</p>
+                            <p class=analysisSettings> Analysis settings: </p>
+                            <ul>
+                                <li class=staticNonlinearSettings> {{ form.analysisTolerance }}</li>
+                                <li class=staticNonlinearSettings> {{ form.analysisMaxIter }}</li>
+                                <li class=staticNonlinearSettings> {{ form.analysisReactions }}</li>
+                                
+                                <li class=transientThermalSettings> {{ form.analysisTMax }}</li>
+                                <li class=transientThermalSettings> {{ form.analysisDT }}</li>
+                                <li class=transientThermalSettings> {{ form.analysisAlpha }}</li>
+                            </ul>
+                        </div>
+                        <div class="section">
+                            <h5>Simulation equation type:</h5>
+                            <p id="equationsel">{{ form.equationType }}</p>
+                            
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,11 +115,15 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Simulation</h2>
-                        <p> Some button to run the simulation</p>
-                        <button class="btn waves-effect waves-light" type="submit" name="action">
-                            Solve!
-                            <i class="material-icons right">send</i>
-                        </button>
+                        <h5>Output preferences</h5>
+                        <div class="section">
+                            {{ form.outputSettings }}
+                            
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Solve!
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,6 +236,41 @@ $(document).ready(function(){
         }
     });
 </script>
+<script>
+    // hide additional analysis settings untill required
+    $(".analysisSettings").hide()
+    $('.staticNonlinearSettings').hide()
+    $('.transientThermalSettings').hide()
+    
+    $("#analysissel").on("change", function(){
+        
+        if ($("#id_analysisType").val() === 'static'){
+            $('.transientThermalSettings').hide()
+            $('.staticNonlinearSettings').hide()
+            $(".analysisSettings").hide()
+            
+        } else if ($("#id_analysisType").val() === 'staticNonlinear') {
+            // kan dit anders? Of moet je dit overal uit gaan zetten?!
+            $('.transientThermalSettings').hide()
+            
+            $(".analysisSettings").show()
+            $('.staticNonlinearSettings').show()
+        } else if ($("#id_analysisType").val() === 'transient') {
+            $('.staticNonlinearSettings').hide()
+            
+            $(".analysisSettings").show()
+            $('.transientThermalSettings').show()
+        }
+    });
+    
+    
+    // $("#analysissel").on("change", function(){
+    //     alert("sup")
+    //     if ($("#id_analysisType").val() === 'Static'){
+    //         $(".analysisSettings").show()
+    //     });
+    // });
+</script
 
 
 
