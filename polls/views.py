@@ -55,7 +55,7 @@ def index(request):
         # form to select a material
         materialsForm = forms.materialsForm(request.POST)
         
-        if form.is_valid() and formset.is_valid() and materialform.is_valid():
+        if form.is_valid() and formset.is_valid() and materialsForm.is_valid():
 
             simulation = form.save()
             pgroup = form.cleaned_data.get('My_field')

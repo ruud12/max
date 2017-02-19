@@ -65,9 +65,22 @@
                     <div class="col s12">
                         <h2 class="header">Materials</h2>
                         <p> Choose your material:</p>
-                        
-                        {{ materialsForm.materialChoice }}
-                    
+                        <table id='material'>
+                            <tbody>
+                                <td id="matsel" style="width:150px">{{ materialsForm.materialChoice }}</td>
+                                <td id="density">{{ materialsForm.density }}</td>
+                                
+                                <td id="youngsModulus">{{ materialsForm.youngsModulus }}</td>
+                                <td id="poissonRatio">{{ materialsForm.poissonRatio }}</td>
+                                
+                                <td id="conductivity">{{ materialsForm.conductivity }}</td>
+                                <td id="heatCapacity">{{ materialsForm.heatCapacity }}</td>
+                                
+                                <td id="viscosity">{{ materialsForm.viscosity }}</td>
+                                
+                            </tbody>
+                        </table>
+                        <button type=button class="btn show_form">Show a form</button>
                     </div>
                 </div>
             </div>
@@ -125,7 +138,8 @@
 <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
 
 <script type="text/javascript">
-       	$('.scrollspy').scrollSpy();
+       	$('.scrollspy').scrollSpy({
+        });
 </script>
 
 <script>
@@ -142,6 +156,46 @@ $(document).ready(function(){
         });
     //});
 });
+</script>
+<script>
+
+    // hide all fields initially
+    $('#youngsModulus').hide()
+    $('#poissonRatio').hide()
+    $('#conductivity').hide()
+    $('#heatCapacity').hide()
+    $('#density').hide()
+    $('#viscosity').hide()
+
+    // when
+    $("#matsel").on("change", function(){
+
+        $('#youngsModulus').hide()
+        $('#poissonRatio').hide()
+        $('#conductivity').hide()
+        $('#heatCapacity').hide()
+        $('#density').hide()
+        $('#viscosity').hide()
+        
+        if ($("#id_materialChoice").val() === 'Elastic'){
+            $('#youngsModulus').show()
+            $('#poissonRatio').show()
+            $('#density').show()
+        
+        } else if ($("#id_materialChoice").val() === 'Heat') {
+            $('#conductivity').show()
+            $('#heatCapacity').show()
+            $('#density').show()
+            
+        } else if ($("#id_materialChoice").val() === 'Fluid') {
+            $('#viscosity').show()
+            $('#density').show()
+        }
+    });
+    // $(".show_form").click(function() {
+    //     alert("nigga")
+    //     $('#test').show();
+    // });
 </script>
 
 

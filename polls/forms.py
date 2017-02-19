@@ -29,6 +29,27 @@ class BoundaryConditionsForm(forms.ModelForm):
         fields = "__all__"
         
 class materialsForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(materialsForm, self).__init__(*args, **kwargs)
+
+        self.fields["youngsModulus"] = forms.CharField(max_length=20,
+                                                widget=forms.TextInput(attrs={'placeholder': "Young's modulus"}))
+        
+        self.fields["density"] = forms.CharField(max_length=20,
+                                                widget=forms.TextInput(attrs={'placeholder': "Density"}))
+
+        self.fields["poissonRatio"] = forms.CharField(max_length=20,
+                                                widget=forms.TextInput(attrs={'placeholder': "Poissons Ratio"}))
+        
+        self.fields["conductivity"] = forms.CharField(max_length=20,
+                                                widget=forms.TextInput(attrs={'placeholder': "Conductivity"}))
+        
+        self.fields["heatCapacity"] = forms.CharField(max_length=20,
+                                                widget=forms.TextInput(attrs={'placeholder': "Heat capacity"}))
+                                                
+        self.fields["viscosity"] = forms.CharField(max_length=20,
+                                                widget=forms.TextInput(attrs={'placeholder': "Viscosity"}))
 
     class Meta:
         model = Materials
