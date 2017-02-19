@@ -11,15 +11,6 @@ class Simulation(models.Model):
     
     mesh = models.FileField(verbose_name="mesh", upload_to="meshes")
     
-    outputChoices = (
-        ("screen", "Print to screen"),
-        ("vtu", "Write to Paraview")
-    )
-    
-    outputSettings = models.CharField(verbose_name="ouputSettings",
-                                      choices=outputChoices,
-                                      max_length=100)
-    
     equationTypes = (
         ("displacement", "Displacement"),
         ("heat", "Heat"),
@@ -56,9 +47,10 @@ class Simulation(models.Model):
     analysisAlpha = models.CharField(verbose_name="analysisAlpha",
                                          max_length=20)
                                          
-
-                                    
+    
     timeFlag = models.BooleanField()
+    printToScreen = models.BooleanField()
+    printToParaview = models.BooleanField()
 
     def __str__(self):
         return str(self.id)

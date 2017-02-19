@@ -117,8 +117,12 @@
                         <h2 class="header">Simulation</h2>
                         <h5>Output preferences</h5>
                         <div class="section">
-                            {{ form.outputSettings }}
-                            
+                            {{ form.printToScreen }} {{form.printToScreen.label_tag}}
+                        </div>
+                        <div class="section">
+                            {{ form.printToParaview }} {{form.printToParaview.label_tag}}
+                        </div>
+                        <div class="section">
                             <button class="btn waves-effect waves-light" type="submit" name="action">
                                 Solve!
                                 <i class="material-icons right">send</i>

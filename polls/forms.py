@@ -10,6 +10,12 @@ class MyForm(forms.ModelForm):
         self.fields["timeFlag"] = forms.BooleanField()
         self.fields['timeFlag'].label = "Time dependent analysis"
         
+        self.fields["printToScreen"] = forms.BooleanField()
+        self.fields['printToScreen'].label = "Print to screen"
+        
+        self.fields["printToParaview"] = forms.BooleanField()
+        self.fields['printToParaview'].label = "Print to Paraview"
+        
         self.fields['analysisTolerance'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Tolerance - this should show the default setting from hybrida"}))
         self.fields['analysisMaxIter'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Max iterations - this should show the default setting from hybrida"}))
         self.fields['analysisReactions'] = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"placeholder": "Reactions - this should show the default setting from hybrida"}))
