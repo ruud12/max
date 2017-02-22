@@ -105,8 +105,19 @@
                         <div class="section">
                             <h5>Simulation equation type:</h5>
                             <p id="equationsel">{{ form.equationType }}</p>
-                            
-                            
+                        </div>
+                        <div class="section">
+                            <h5>Perform topology optimization <label style="margin-left:2em">{{ form.optimizationFlag }} {{ form.optimizationFlag.label_tag }}</label> </h5>
+                        </div>
+                        <div class="section optimization">
+                            Optimization settings:
+                            {{ optimizationForm.as_p }}
+                            <ul style="margin-left:2em">
+                                <li>Objective function</li>
+                                <li>{{ optimizationForm.objectiveFuntion }}</li>
+                                <li>Penalization</li>
+                                <li>Filtering</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -115,6 +126,7 @@
                 <div class="row">
                     <div class="col s12">
                         <h2 class="header">Simulation</h2>
+                        
                         <h5>Output preferences</h5>
                         <div class="section">
                             {{ form.printToScreen }} {{form.printToScreen.label_tag}}
@@ -163,6 +175,7 @@
 </form>
 
 <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
+<script type="text/javascript" src="{% static 'noUiSlider/noUiSlider.min.js' %}"></script>
 
 <script type="text/javascript">
         $(document).ready(function(){
@@ -242,6 +255,19 @@ $(document).ready(function(){
     });
 </script>
 <script>
+    // hide optimization related stuff on default
+    $('.optimization').hide()
+    
+    // check the checkbox and see if optimization should be shown
+    $("#id_optimizationFlag").on("click", function(){
+        if ($("#id_optimizationFlag").is(":checked")){
+            $('.optimization').show()
+        } else {
+            $('.optimization').hide()
+        }
+    });
+</script>
+<script>
     // hide additional analysis settings untill required
     $(".analysisSettings").hide()
     $('.staticNonlinearSettings').hide()
@@ -267,15 +293,7 @@ $(document).ready(function(){
             $('.transientThermalSettings').show()
         }
     });
-    
-    
-    // $("#analysissel").on("change", function(){
-    //     alert("sup")
-    //     if ($("#id_analysisType").val() === 'Static'){
-    //         $(".analysisSettings").show()
-    //     });
-    // });
-</script
+</script>
 
 
 

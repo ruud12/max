@@ -42,13 +42,16 @@ class Simulation(models.Model):
 
     analysisTMax = models.CharField(verbose_name="analysisTMax",
                                          max_length=20)
-    analysisDT = models.CharField(verbose_name="analysisDT",
-                                         max_length=20)
-    analysisAlpha = models.CharField(verbose_name="analysisAlpha",
-                                         max_length=20)
-                                         
     
+    analysisDT = models.CharField(verbose_name="analysisDT",
+                                  max_length=20)
+    
+    analysisAlpha = models.CharField(verbose_name="analysisAlpha",
+                                     max_length=20)
+    
+    # boolean flags to set parts of the simulation
     timeFlag = models.BooleanField()
+    optimizationFlag = models.BooleanField()
     printToScreen = models.BooleanField()
     printToParaview = models.BooleanField()
 
@@ -65,6 +68,17 @@ class BoundaryConditions(models.Model):
                               max_length=100)
 
     simulation = models.ForeignKey(Simulation, verbose_name="relatedSimulation")
+    
+class OptimizationModel(models.Model):
+    
+    choices_objective = (
+            ("compliance", "Compliance"),
+            ("compliance", "Compliance")
+        )
+
+    objectiveFunction = models.CharField(verbose_name="objectiveFunction",
+                                         choices=choices_objective,
+                                         max_length=100)
     
 class Materials(models.Model):
     

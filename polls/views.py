@@ -36,6 +36,7 @@ def index(request):
             ('3', 'Surface'),
             ('4', 'Volume'),
     )
+    
     choices_bctypes = (
             ("1", "Dirichlet"),
             ("2", "Neumann"),
@@ -54,6 +55,7 @@ def index(request):
         
         # form to select a material
         materialsForm = forms.materialsForm(request.POST)
+        optimizationForm = forms.OptimizationForm(request.POST)
         
         if form.is_valid() and formset.is_valid() and materialsForm.is_valid():
 
@@ -69,8 +71,12 @@ def index(request):
         form = forms.MyForm()
         materialsForm = forms.materialsForm()
         formset = boundaryConditionsFormSet(prefix="fs1", form_kwargs={"choices_pgroups":choices_pgroups, "choices_bctypes":choices_bctypes})
-    
-    return render(request, 'polls/name.html', {'form': form, "formset": formset, "materialsForm": materialsForm})
+        optimizationForm = forms.OptimizationForm()
+        
+    return render(request, 'polls/name.html', {"form": form,
+                                               "formset": formset,
+                                               "materialsForm": materialsForm,
+                                               "optimizationForm": optimizationForm})
     
 # def boundaryConditions(request, form):
 #

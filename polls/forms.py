@@ -1,5 +1,5 @@
 from django import forms
-from polls.models import Simulation, BoundaryConditions, Materials
+from polls.models import Simulation, BoundaryConditions, Materials, OptimizationModel
 
 class MyForm(forms.ModelForm):
     
@@ -9,6 +9,9 @@ class MyForm(forms.ModelForm):
 
         self.fields["timeFlag"] = forms.BooleanField()
         self.fields['timeFlag'].label = "Time dependent analysis"
+        
+        self.fields["optimizationFlag"] = forms.BooleanField()
+        self.fields["optimizationFlag"].label = ""
         
         self.fields["printToScreen"] = forms.BooleanField()
         self.fields['printToScreen'].label = "Print to screen"
@@ -48,6 +51,13 @@ class BoundaryConditionsForm(forms.ModelForm):
         model = BoundaryConditions
         fields = "__all__"
         
+class OptimizationForm(forms.ModelForm):
+    
+
+    class Meta:
+        model = OptimizationModel
+        fields = "__all__"
+
 class materialsForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
